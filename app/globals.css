@@ -1,0 +1,129 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: #060510;
+	color: #f7f7f7;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* The original demo used a stock photo of Earth from orbit. This is the same look built
+   from gradients so the repo ships no image it does not own. */
+.sky {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	overflow: hidden;
+	background:
+		radial-gradient(130% 70% at 18% 0%, rgba(96, 106, 247, 0.12), transparent 62%),
+		radial-gradient(90% 90% at 95% 105%, rgba(24, 22, 68, 0.9), transparent 68%),
+		#060510;
+}
+
+.sky::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-image:
+		radial-gradient(1px 1px at 18% 26%, rgba(255, 255, 255, 0.9), transparent 60%),
+		radial-gradient(1px 1px at 72% 12%, rgba(255, 255, 255, 0.7), transparent 60%),
+		radial-gradient(1px 1px at 38% 74%, rgba(255, 255, 255, 0.65), transparent 60%),
+		radial-gradient(1.6px 1.6px at 86% 52%, rgba(255, 255, 255, 0.85), transparent 60%),
+		radial-gradient(1px 1px at 8% 62%, rgba(255, 255, 255, 0.6), transparent 60%),
+		radial-gradient(1px 1px at 56% 38%, rgba(255, 255, 255, 0.75), transparent 60%),
+		radial-gradient(1px 1px at 28% 94%, rgba(255, 255, 255, 0.5), transparent 60%),
+		radial-gradient(1.4px 1.4px at 94% 82%, rgba(255, 255, 255, 0.7), transparent 60%),
+		radial-gradient(1px 1px at 64% 66%, rgba(255, 255, 255, 0.55), transparent 60%);
+	background-size:
+		190px 190px, 150px 150px, 230px 230px, 310px 310px, 170px 170px, 210px 210px,
+		260px 260px, 290px 290px, 130px 130px;
+}
+
+/* A disc whose centre sits off-screen past the top-right corner, so only its lower-left
+   limb crosses the viewport — the crescent the original photo showed. */
+.earth {
+	position: absolute;
+	width: 2200px;
+	height: 2200px;
+	top: -1500px;
+	right: -1600px;
+	border-radius: 50%;
+	border: 1.5px solid rgba(203, 232, 255, 0.8);
+	background: radial-gradient(
+		circle at 62% 34%,
+		rgba(38, 82, 148, 0.5) 0%,
+		rgba(20, 44, 92, 0.42) 55%,
+		rgba(10, 22, 50, 0.34) 100%
+	);
+	box-shadow:
+		0 0 110px 10px rgba(104, 162, 232, 0.22),
+		inset 0 0 180px 50px rgba(74, 140, 214, 0.3);
+}
+
+/* The disc is placed in px from the right edge, so on a narrower viewport its limb would cut
+   straight through the wordmark and the button. Pull it further into the corner, then drop it. */
+@media (max-width: 1200px) {
+	.earth {
+		width: 1600px;
+		height: 1600px;
+		top: -1150px;
+		right: -1150px;
+	}
+}
+
+@media (max-width: 760px) {
+	.earth {
+		display: none;
+	}
+}
+
+/* Only the bordered form fields. The amount display input is borderless and its caret is the
+   focus indicator — an outline there just draws a box around the number. */
+.field:focus-visible {
+	outline: 2px solid #606af7;
+	outline-offset: 2px;
+}
+
+.amount::placeholder {
+	color: rgba(247, 247, 247, 0.25);
+}
+
+@keyframes onramp-backdrop-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes onramp-panel-in {
+	from {
+		opacity: 0;
+		transform: translateY(14px) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+.onramp-backdrop {
+	animation: onramp-backdrop-in 160ms ease-out both;
+}
+
+/* Overshoot-free easing so a panel holding a card face does not wobble on entry. */
+.onramp-panel {
+	animation: onramp-panel-in 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	[data-animate] {
+		animation: none !important;
+		transition: none !important;
+	}
+}

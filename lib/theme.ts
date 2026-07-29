@@ -1,0 +1,17 @@
+export const theme = {
+	bg: "#060510",
+	panel: "rgba(12, 11, 26, 0.96)",
+	row: "rgba(247, 247, 247, 0.05)",
+	rowHover: "rgba(247, 247, 247, 0.1)",
+	border: "#cbd0eb1a",
+	text: "#f7f7f7",
+	heading: "#eaedff",
+	muted: "rgba(247, 247, 247, 0.6)",
+	faint: "rgba(247, 247, 247, 0.58)",
+	accent: "#606af7",
+	accentSoft: "rgba(96, 106, 247, 0.15)",
+	accentText: "#b9bdfb",
+	positive: "#7ee2a8",
+	warning: "#f0c66b",
+	negative: "#f08a8a",
+} as const;
